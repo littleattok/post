@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @Table(name="posts")
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +30,6 @@ public class Posts {
 
     @Column(nullable = false, length = 60, name="password_hashed")
     private String password;
-
-    @Column(nullable=false)
-    private LocalDateTime createdAt;
-
-    @Column(nullable=false)
-    private LocalDateTime updatedAt;
 
 
     @Builder
