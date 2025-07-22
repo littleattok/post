@@ -22,7 +22,7 @@ function PostFeed(){
 
     useEffect(()=>{
         fetchPosts();
-    });
+    },[]);
 
     if(loading){
         return <div>로딩 중...</div>;
@@ -33,7 +33,7 @@ function PostFeed(){
             <PostForm onPostCreated={fetchPosts} />
             <div className="post-list">
                 {posts.map(post => (
-                    <PostCard key={post.id} post={post} onPostDeleted={fetchPosts} />
+                    <PostCard key={post.id} post={post} onDelete={fetchPosts} />
                 ))}
             </div>
         </div>
