@@ -4,7 +4,7 @@ import DeleteConfirmationModal from './DeleteConfirmationModal';
 function PostCard({post, onPostDeleted}){
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
-    const handledDeleteModalOpen = () =>{
+    const handleDeleteSuccess  = () =>{
         setDeleteModalOpen(false);
         onPostDeleted();
     };
@@ -22,3 +22,4 @@ function PostCard({post, onPostDeleted}){
         </div>
     )
 }
+export default PostCard;

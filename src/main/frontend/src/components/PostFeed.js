@@ -39,3 +39,5 @@ function PostFeed(){
         </div>
     )
 }
+
+export default PostFeed;
