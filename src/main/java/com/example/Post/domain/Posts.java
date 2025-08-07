@@ -32,7 +32,6 @@ public class Posts extends BaseTimeEntity {
 
     private String authorNickname;
 
-    private String password;
 
     private String ipAddress;
 

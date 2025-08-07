@@ -28,7 +28,10 @@ const NavItem = styled.li`
         }
     }
 `;
-
+const UserProfileContainer = styled.div`
+  /* 4단계에서 구현 */
+  margin-bottom: 20px;
+`;
 
 function Sidebar(){
     return (

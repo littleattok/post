@@ -14,7 +14,7 @@ function App(){
             <GlobalStyle/>
             <Router>
                 <Routes>
-                    <Route path = '/' element={<mainLayout/>}>
+                    <Route path = '/' element={<MainLayout/>}>
                         <Route index element = {<HomePage/>}/>
                         <Route path = 'post/:id' element = {<PostDetailPage/>}/>
                         <Route path = 'login' element = {<LoginPage/>}/>
@@ -25,3 +25,4 @@ function App(){
         </>
     )
 }
+export default App;

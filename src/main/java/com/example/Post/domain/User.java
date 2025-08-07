@@ -1,11 +1,11 @@
 package com.example.Post.domain;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
-import lombok.Builder;
-
 
 @Entity
 @Getter
@@ -14,13 +14,13 @@ import lombok.Builder;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = AccessLevel.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false , unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column (nullabel = false)
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, unique = true)
@@ -32,7 +32,7 @@ public class User {
     private LocalDateTime createdAt;
 
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
 
@@ -42,5 +42,5 @@ public class User {
         this.password = password;
         this.nickname = nickname;
         this.profileImageUrl = profileImageUrl;
-    
-}
+    }
+} 
