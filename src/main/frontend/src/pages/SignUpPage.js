@@ -61,6 +61,7 @@ function SignUpPage(){
                 <Input type = "text" name= "username" value={formData.username} onChange={handleChange} placeholder = "사용자ID" required/>
                 <Input type = "password" name= "password" value={formData.password} onChange={handleChange} placeholder = "비밀번호" required/>
                 <Input type = "text" name= "nickname" value={formData.nickname} onChange={handleChange} placeholder = "닉네임" required/>
+                <button type="submit">회원가입</button>
             </FormContainer>
         </div>
     )
