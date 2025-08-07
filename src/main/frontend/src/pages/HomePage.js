@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import {getAllPosts} from '../api/posts';
-
-import {PostForm} from '../features/Posts/PostForm';
-import {PostCard} from '../features/Posts/PostCard';
+import {getAllPosts} from '../api/apiService';
+import {useState, useEffect, useCallback} from 'react';
+import PostForm from '../features/posts/PostForm';
+import PostCard from '../features/posts/PostCard';
 
 const HomePageContainer = styled.div`
     width: 100%;

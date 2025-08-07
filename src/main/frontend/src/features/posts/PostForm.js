@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {createPost} from '../../api/posts';
+import {createPost} from '../../api/apiService';
 
 const FormWrapper  = styled.form`
     display: flex;

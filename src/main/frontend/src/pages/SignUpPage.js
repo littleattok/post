@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import {signUp} from '../api/apiService';
 
+import {useState} from 'react';
 const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
