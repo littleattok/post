@@ -10,13 +10,18 @@ import SignUpPage from './pages/SignUpPage';
 
 function App(){
     return (
-        <GlobalStyle/>
-        <Router>
-            <Routes>
-                <Route path = '/' element={<mainLayout/>}>
-                
-                </Route>
-            </Routes>
-        </Router>
+        <>
+            <GlobalStyle/>
+            <Router>
+                <Routes>
+                    <Route path = '/' element={<mainLayout/>}>
+                        <Route index element = {<HomePage/>}/>
+                        <Route path = 'post/:id' element = {<PostDetailPage/>}/>
+                        <Route path = 'login' element = {<LoginPage/>}/>
+                        <Route path = 'signup' element = {<SignUpPage/>}/>
+                    </Route>
+                </Routes>
+            </Router>
+        </>
     )
 }
