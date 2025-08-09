@@ -1,14 +1,18 @@
 package com.example.Post.jwt;
 
-import io.jsonwebsocket.*;
-import io.jsonwebsocket.security.Keys;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotataion.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+
+import java.security.Key;
+import java.util.Base64;
+import java.util.Date;
 @Component
 public class jwtUtil {
 
@@ -24,7 +28,7 @@ public class jwtUtil {
     @PostConstruct
     public void init(){
         byte[] bytes = Base64.getDecoder().decode(secretKey);
-        key = Keys.hmacShakeKey(bytes);
+        key = Keys.hmacShaKeyFor(bytes);
     }
 
 
@@ -34,7 +38,7 @@ public class jwtUtil {
                 .setSubject(username)
                 .setExpiration(new Date(date.getTime()+ TOKEN_TIME))
                 .setIssuedAt(date)
-                .signWWith(key, signatureAlgorithm)
+                .signWith(key, signatureAlgorithm)
                 .compact();
     }
 
@@ -48,7 +52,7 @@ public class jwtUtil {
 
     public boolean validateToken(String token){
         try{
-            Jwts.parseBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         }
         catch(Exception e){
@@ -60,7 +64,7 @@ public class jwtUtil {
 
 
     public Claims getUserInfoFromToken(String token){
-        return Jwts.parseBuilder()
+        return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
