@@ -38,7 +38,7 @@ public class jwtUtil {
                 .compact();
     }
 
-    public Stirng getJwtFromHeader (HttpServletRequest request){
+    public String getJwtFromHeader (HttpServletRequest request){
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)){
             return bearerToken.substring(7);
