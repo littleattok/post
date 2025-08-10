@@ -13,6 +13,8 @@ import org.springframework.util.StringUtils;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+
+
 @Component
 public class jwtUtil {
 
@@ -32,7 +34,7 @@ public class jwtUtil {
     }
 
 
-    public String CreateToken(String username){
+    public String createToken(String username){
         Date date = new Date();
         return BEARER_PREFIX + Jwts.builder()
                 .setSubject(username)
