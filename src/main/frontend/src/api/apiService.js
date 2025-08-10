@@ -1,4 +1,6 @@
 import axios from 'axios';
+import useAuthStore from '../store/useAuthStore';
+
 
 const apiClient = axios.create({
     baseURL: '/api',
@@ -6,6 +8,24 @@ const apiClient = axios.create({
         'Content-Type': 'application/json',
     },
 });
+
+//요청 인터셉터
+apiClient.interceptors.request.use(
+    (config)  =>{
+        const {token} = useAuthStore.getState();
+        if (token){
+            config.headers.Authorization = token;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+)
+
+
+
+
 
 // 사용자 관련 API
 export const signUp = (userData) => apiClient.post('/users/signup', userData);

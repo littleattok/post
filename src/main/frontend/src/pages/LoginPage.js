@@ -5,9 +5,24 @@ import {login} from '../api/apiService';
 import useAuthstore from '../store/useAuthStore';
 
 
-const FormContainer = styled.form `/* ... */`;
-const Input = styled.input `/* ... */`;
+const FormContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin:40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    `;
 
+const Input = styled.input`
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+`;
 
 function LoginPage(){
 
