@@ -5,7 +5,7 @@ import {login} from '../api/apiService';
 import useAuthstore from '../store/authStore';
 import {useState} from 'react';
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -37,6 +37,7 @@ function LoginPage(){
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
+
         try{
             const response = await login(credentials);
             const token = response.headers.authorization;

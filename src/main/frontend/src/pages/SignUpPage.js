@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {signUp} from '../api/apiService';
 
 import {useState} from 'react';
-const FormContainer = styled.div`
+const FormContainer = styled.form`
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -43,7 +43,9 @@ function SignUpPage(){
 
 
     const handleSubmit = async (e) =>{
+        
         e.preventDefault();
+
         try{
             await signUp(formData);
             alert("회원가입 완료");
@@ -61,7 +63,7 @@ function SignUpPage(){
                 <Input type = "text" name= "username" value={formData.username} onChange={handleChange} placeholder = "사용자ID" required/>
                 <Input type = "password" name= "password" value={formData.password} onChange={handleChange} placeholder = "비밀번호" required/>
                 <Input type = "text" name= "nickname" value={formData.nickname} onChange={handleChange} placeholder = "닉네임" required/>
-                <button type="submit">회원가입</button>
+                <button type = "submit">회원가입</button>
             </FormContainer>
         </div>
     )
