@@ -32,7 +32,9 @@ const Input = styled.input`
 `;
 
 function PostForm({onPostCreated}){
-    const {isAuthenticated} = useAuthStore();
+    const {token} = useAuthStore();
+    const isLoggedIn = !!token;
+
     const[ formData,setFormData] = useState({
         content:'',
         authorNickname:'',
@@ -49,12 +51,12 @@ function PostForm({onPostCreated}){
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        if(!formData.authorNickname || !formData.content || !formData.password){
+        if(!isLoggedIn && (!formData.authorNickname || !formData.password)){
             alert("모든 필드를 입력해주세요.");
             return;
         }
         try{
-            const payload = isAuthenticated ? {content: formData.content} : formData;
+            const payload = isLoggedIn ? {content: formData.content} : formData;
             await createPost(payload);
             setFormData({content: '', authorNickname: '', password:''});
             if(onPostCreated){
@@ -70,7 +72,7 @@ function PostForm({onPostCreated}){
     return(
         <FormWrapper onSubmit = {handleSubmit}>
             <TextArea name ="content" value={formData.content} onChange= {handleChange} placeholder="어떤 일이 있으신가요" required/>
-            {!isAuthenticated &&(
+            {!isLoggedIn &&(
                 <>
                     <Input type ="text" name= "authorNickname" value = {formData.authorNickname} onChange={handleChange} placeholder="닉네임" required></Input>
                     <Input type ="password" name="password" value= {formData.password} onChange={handleChange} placeholder="비밀번호" required></Input>

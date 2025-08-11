@@ -40,9 +40,10 @@ const UserProfileContainer = styled.div`
 function Sidebar(){
 
 
-    const {isAuthenticated, token, logout} = useAuthStore();
+    const { token, logout} = useAuthStore();
     const navigate = useNavigate(); 
 
+    const isLoggedIn = !!token;
     let username = null;
     if(token){
         try{
@@ -56,7 +57,7 @@ function Sidebar(){
     const handleLogout = () =>{
         logout();
         alert("로그아웃 되었습니다.");
-        navigate("/login");
+        navigate("/");
     };
 
 
@@ -65,7 +66,7 @@ function Sidebar(){
         <SidebarContainer>
             <UserProfileContainer>
                 <h2>내 정보</h2>
-                {isAuthenticated && username ?(
+                {isLoggedIn && username ?(
                     <div>
                         <p>{username}님 환영합니다.</p>
                         <button onClick={handleLogout}>로그아웃</button>
@@ -78,7 +79,7 @@ function Sidebar(){
             </UserProfileContainer>
             <NavList>
                 <NavItem><Link to="/">홈</Link></NavItem>
-                {!isAuthenticated && (
+                {!isLoggedIn && (
                     <>
                         <NavItem><Link to="/login">로그인</Link></NavItem>
                         <NavItem><Link to="/signup">회원가입</Link></NavItem>

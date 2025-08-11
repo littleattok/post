@@ -36,7 +36,7 @@ public class Posts extends BaseTimeEntity {
     private String ipAddress;
 
 
-    @Column(nullable = false, length = 60, name="password_hashed")
+    @Column(name="password_hashed")
     private String password;
 
 
