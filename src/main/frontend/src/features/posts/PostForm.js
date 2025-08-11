@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {createPost} from '../../api/apiService';
 
+import useAuthStore from '../../store/authStore';
 const FormWrapper  = styled.form`
     display: flex;
     flex-direction: column;
@@ -31,6 +32,7 @@ const Input = styled.input`
 `;
 
 function PostForm({onPostCreated}){
+    const {isAuthenticated} = useAuthStore();
     const[ formData,setFormData] = useState({
         content:'',
         authorNickname:'',
@@ -52,10 +54,9 @@ function PostForm({onPostCreated}){
             return;
         }
         try{
-            await createPost(formData);
-            setFormData({
-                content:'', authorNickname:'', password:''
-            });
+            const payload = isAuthenticated ? {content: formData.content} : formData;
+            await createPost(payload);
+            setFormData({content: '', authorNickname: '', password:''});
             if(onPostCreated){
                 onPostCreated();
             }
@@ -69,9 +70,13 @@ function PostForm({onPostCreated}){
     return(
         <FormWrapper onSubmit = {handleSubmit}>
             <TextArea name ="content" value={formData.content} onChange= {handleChange} placeholder="어떤 일이 있으신가요" required/>
-            <Input type = "text" name = "authorNickname" value = {formData.authorNickname} onChange = {handleChange} placeholder= "닉네임" required/>
-            <Input type = "password" name = "password" value = {formData.password} onChange = {handleChange} placeholder = "비밀번호" required />
-            <button type= "submit">게시글 작성</button>
+            {!isAuthenticated &&(
+                <>
+                    <Input type ="text" name= "authorNickname" value = {formData.authorNickname} onChange={handleChange} placeholder="닉네임" required></Input>
+                    <Input type ="password" name="password" value= {formData.password} onChange={handleChange} placeholder="비밀번호" required></Input>
+                </>
+            )}
+            <button type= "submit">작성</button>
         </FormWrapper> 
     )
 }

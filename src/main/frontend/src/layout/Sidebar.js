@@ -1,7 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 
+
+import useAuthStore from '../store/authStore';
+
+import {jwtDecode} from 'jwt-decode';
 const SidebarContainer = styled.div`
     width: 280px;
     flex-shrink:0;
@@ -34,22 +38,52 @@ const UserProfileContainer = styled.div`
 `;
 
 function Sidebar(){
+
+
+    const {isAuthenticated, token, logout} = useAuthStore();
+    const navigate = useNavigate(); 
+
+    let username = null;
+    if(token){
+        try{
+            username = jwtDecode(token).sub;
+        }
+        catch(e){
+            console.error("Invalid token", e);
+        }
+    }
+
+    const handleLogout = () =>{
+        logout();
+        alert("로그아웃 되었습니다.");
+        navigate("/login");
+    };
+
+
+
     return (
         <SidebarContainer>
             <UserProfileContainer>
                 <h2>내 정보</h2>
-                {/*추후 추가할 로그인/비로그인 시 다른 UI*/}
+                {isAuthenticated && username ?(
+                    <div>
+                        <p>{username}님 환영합니다.</p>
+                        <button onClick={handleLogout}>로그아웃</button>
+                    </div>
+                ):(
+                    <div>
+                        <p>로그인 후 이용해주세요.</p>
+                    </div>
+                )}
             </UserProfileContainer>
             <NavList>
-                <NavItem>
-                    <Link to="/">홈</Link>
-                </NavItem>
-                <NavItem>
-                    <Link to="/login">로그인</Link>
-                </NavItem>
-                <NavItem>
-                    <Link to="/signup">회원가입</Link>
-                </NavItem>
+                <NavItem><Link to="/">홈</Link></NavItem>
+                {!isAuthenticated && (
+                    <>
+                        <NavItem><Link to="/login">로그인</Link></NavItem>
+                        <NavItem><Link to="/signup">회원가입</Link></NavItem>
+                    </>
+                )}
             </NavList>
         </SidebarContainer>
     )

@@ -2,8 +2,8 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import {login} from '../api/apiService';
-import useAuthstore from '../store/useAuthStore';
-
+import useAuthstore from '../store/authStore';
+import {useState} from 'react';
 
 const FormContainer = styled.div`
     display: flex;
